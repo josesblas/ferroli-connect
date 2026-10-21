@@ -135,7 +135,7 @@ the command topic: `/app2dev/<prefix>/<cid>/<ts>_<owner_slug>$of$...`.
 
 | Field | Meaning |
 |---|---|
-| Device client id / username | e.g. `Q85VUC...` |
+| Device client id / username | the receiver's client id (auto-discovered from the broker) |
 | Device MQTT password | the receiver's MQTT password |
 | Owner slug | the UUID from the `/app2dev/.../<ts>_<owner_slug>$of$...` topic |
 | Keep the official app working | enable the Topband bridge |
