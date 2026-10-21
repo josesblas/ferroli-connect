@@ -22,6 +22,10 @@ official app working by bridging the device to the Topband cloud.
 
 ## Screenshots
 
+Setting the temperature up and down from the thermostat card:
+
+![Adjusting the setpoint](docs/demo-setpoint.gif)
+
 | Thermostat (heating) | Device page |
 |---|---|
 | ![Thermostat calling for heat](docs/thermostat-heating.png) | ![Device page with all entities](docs/device-page.png) |
