@@ -20,29 +20,32 @@ name/year.
 
 ## 3. The Ferroli logo (brand images)
 
-Home Assistant does **not** read the logo from this repo. Every integration's
-icon/logo is served from the central **[home-assistant/brands]** repository
-(`https://brands.home-assistant.io/<domain>/...`). Until the images are there,
-HA shows a generic placeholder — this is normal for a brand-new custom
-integration and does **not** affect functionality.
+Since **Home Assistant 2026.3.0**, a custom integration ships its own brand
+images directly — no PR to the `home-assistant/brands` repo is needed. HA serves
+local images with priority over the CDN, with no extra configuration.
 
-To get the Ferroli logo to show:
+The images live in a `brand/` folder next to `manifest.json` (already included
+in this repo):
 
-1. Prepare two PNGs with a **transparent background**, trimmed (no padding):
-   - `icon.png` — square, **256×256** (a `icon@2x.png` 512×512 is recommended too).
-   - `logo.png` — the wordmark, max **256** tall (a `logo@2x.png` is recommended).
-   The helper `tools/make_brand_assets.py` in this repo produces them from a
-   source logo (needs Pillow): `python tools/make_brand_assets.py path/to/ferroli-logo.png`.
-2. Fork **home-assistant/brands**, add the files under
-   `custom_integrations/ferroli_connect/` and open a PR.
-3. Once merged, the Ferroli logo appears in HA automatically (clear browser
-   cache if needed).
+```
+custom_components/ferroli_connect/
+├── manifest.json
+└── brand/
+    ├── icon.png      (256×256, transparent)
+    ├── icon@2x.png   (512×512)
+    ├── logo.png
+    └── logo@2x.png
+```
 
-> Note: the Ferroli name and logo are trademarks of Ferroli S.p.A. The brands
-> repo hosts manufacturer logos for identification; this project is not
-> affiliated with or endorsed by Ferroli.
+Optional dark-mode variants are also supported: `dark_icon.png`,
+`dark_logo.png`, `dark_icon@2x.png`, `dark_logo@2x.png`.
 
-[home-assistant/brands]: https://github.com/home-assistant/brands
+The helper `tools/make_brand_assets.py` regenerates them from a source logo
+(needs Pillow): `python tools/make_brand_assets.py path/to/ferroli-logo.png`.
+
+> Note: the Ferroli name and logo are trademarks of Ferroli S.p.A. and are used
+> here only for identification; this project is not affiliated with or endorsed
+> by Ferroli.
 
 ## 4. Push to GitHub
 
