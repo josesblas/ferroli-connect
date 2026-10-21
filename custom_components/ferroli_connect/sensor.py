@@ -79,7 +79,7 @@ class FerroliSensor(SensorEntity):
         self._attr_unique_id = f"{runtime.entry.entry_id}_{description.key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, runtime.cid)},
-            name="Caldera Ferroli",
+            name="Ferroli Connect",
             manufacturer="Ferroli",
             model="Ferroli Connect",
         )
