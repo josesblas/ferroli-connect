@@ -7,6 +7,7 @@ cloud (so the official app keeps working), and controls the setpoint.
 from __future__ import annotations
 
 import logging
+from datetime import timedelta
 
 import paho.mqtt.client as paho
 
@@ -14,6 +15,7 @@ from homeassistant.components import mqtt
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
+from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.storage import Store
 
 from . import protocol
@@ -34,6 +36,10 @@ from .const import (
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+# El receptor solo emite su estado cada 1-2 min por su cuenta; sondeamos
+# periodicamente para que el estado (caldera, temperaturas) este fresco.
+POLL_INTERVAL = timedelta(seconds=30)
 
 
 class FerroliRuntime:
@@ -56,6 +62,7 @@ class FerroliRuntime:
         self._polled_thermo = False
         self._tb: paho.Client | None = None
         self._unsubs: list = []
+        self._unsub_poll = None
         self._rx = 0
         self._store: Store = Store(hass, 1, f"{DOMAIN}_{entry.entry_id}")
 
@@ -92,6 +99,17 @@ class FerroliRuntime:
             self._unsubs.append(unsub)
         if self.bridge_enabled:
             await self.hass.async_add_executor_job(self._start_bridge)
+        # sondeo periodico para refrescar estado sin esperar al cacharro
+        self._unsub_poll = async_track_time_interval(
+            self.hass, self._periodic_poll, POLL_INTERVAL
+        )
+
+    @callback
+    def _periodic_poll(self, now=None) -> None:
+        if self.boiler_id:
+            self.hass.async_create_task(self._poll_boiler())
+        if self.thermo_id:
+            self.hass.async_create_task(self._poll_thermo())
 
     @callback
     def _on_meta(self, msg) -> None:
@@ -209,6 +227,9 @@ class FerroliRuntime:
             _LOGGER.debug("Poll termostato fallido: %s", err)
 
     async def async_stop(self) -> None:
+        if self._unsub_poll is not None:
+            self._unsub_poll()
+            self._unsub_poll = None
         for unsub in self._unsubs:
             unsub()
         self._unsubs.clear()
