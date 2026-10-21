@@ -1,0 +1,41 @@
+{
+  "config": {
+    "step": {
+      "confirm": {
+        "title": "Ferroli Connect",
+        "description": "Dispositivo detectado automáticamente: {cid}. El client id se aprendió del tráfico del receptor. El owner slug y el control también se aprenden solos (puedes dejarlos en blanco). La contraseña solo hace falta para mantener la app oficial (bridge a la nube); déjala en blanco para controlar solo desde Home Assistant.",
+        "data": {
+          "client_id": "Client id / usuario del dispositivo",
+          "password": "Contraseña MQTT (opcional, bridge a la nube)",
+          "owner_slug": "Owner slug (opcional, se aprende solo)",
+          "bridge_enabled": "Mantener la app oficial (bridge a la nube)",
+          "bridge_host": "IP del broker en la nube (Topband)"
+        }
+      }
+    },
+    "error": {
+      "no_client_id": "No se detectó el receptor en el broker. Asegúrate de que eu-mqtt.topband-cloud.com está redirigido a Home Assistant y el receptor conectado, y vuelve a enviar."
+    },
+    "abort": {
+      "already_configured": "Este dispositivo ya está configurado"
+    }
+  },
+  "entity": {
+    "climate": {
+      "thermostat": { "name": "Termostato" }
+    },
+    "sensor": {
+      "room_temp": { "name": "Temperatura ambiente" },
+      "setpoint": { "name": "Consigna" },
+      "flow_temp": { "name": "Temperatura de ida" },
+      "dhw_temp": { "name": "Temperatura ACS (agua caliente)" },
+      "dhw_flow": { "name": "Caudal ACS" },
+      "boiler_state": {
+        "name": "Estado caldera",
+        "state": { "off": "Apagada", "heating": "Calefacción", "dhw": "Agua caliente", "on": "Encendida" }
+      },
+      "mode": { "name": "Modo termostato" },
+      "boiler_setpoint": { "name": "Consigna caldera" }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "config": {
+    "step": {
+      "confirm": {
+        "title": "Ferroli Connect",
+        "description": "Auto-discovered device: {cid}. The client id was learned from the receiver's MQTT traffic. The owner slug and control are also learned automatically (you can leave them blank). The password is only needed to keep the official app working (cloud bridge); leave it blank for Home-Assistant-only control.",
+        "data": {
+          "client_id": "Device client id / username",
+          "password": "Device MQTT password (optional, cloud bridge)",
+          "owner_slug": "Owner slug (optional, auto-learned)",
+          "bridge_enabled": "Keep the official app working (bridge to the cloud)",
+          "bridge_host": "Cloud broker IP (Topband)"
+        }
+      }
+    },
+    "error": {
+      "no_client_id": "No receiver detected on the broker. Make sure eu-mqtt.topband-cloud.com is redirected to Home Assistant and the receiver is connected, then submit again."
+    },
+    "abort": {
+      "already_configured": "This device is already configured"
+    }
+  },
+  "entity": {
+    "climate": {
+      "thermostat": { "name": "Thermostat" }
+    },
+    "sensor": {
+      "room_temp": { "name": "Room temperature" },
+      "setpoint": { "name": "Setpoint" },
+      "flow_temp": { "name": "Flow temperature" },
+      "dhw_temp": { "name": "DHW temperature" },
+      "dhw_flow": { "name": "DHW flow" },
+      "boiler_state": {
+        "name": "Boiler state",
+        "state": { "off": "Off", "heating": "Heating", "dhw": "Hot water", "on": "On" }
+      },
+      "mode": { "name": "Thermostat mode" },
+      "boiler_setpoint": { "name": "Boiler setpoint" }
+    }
+  }
+}
