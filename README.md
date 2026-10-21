@@ -20,6 +20,17 @@ official app working by bridging the device to the Topband cloud.
 - **Optional cloud bridge**: the integration relays the device ↔ Topband so the
   official Ferroli app keeps working.
 
+## Screenshots
+
+| Thermostat (heating) | Device page |
+|---|---|
+| ![Thermostat calling for heat](docs/thermostat-heating.png) | ![Device page with all entities](docs/device-page.png) |
+
+The thermostat card shows **Heating** when the setpoint is above the room
+temperature (or the boiler is actively firing) and **Idle** otherwise, so you
+can tell at a glance whether it's heating. Entity names follow your Home
+Assistant language (English / Spanish provided).
+
 ## How it works
 
 The receiver connects to `eu-mqtt.topband-cloud.com:1883` (plain MQTT). You
