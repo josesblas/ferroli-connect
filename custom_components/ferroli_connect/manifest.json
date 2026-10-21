@@ -1,7 +1,7 @@
 {
   "domain": "ferroli_connect",
   "name": "Ferroli Connect",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "documentation": "https://github.com/josesblas/ferroli-connect",
   "issue_tracker": "https://github.com/josesblas/ferroli-connect/issues",
   "codeowners": ["@josesblas"],
